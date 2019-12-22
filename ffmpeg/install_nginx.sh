@@ -48,7 +48,7 @@ echo tar $nginx_gz
 echo ---------------------------------------------------------------
 
 if [ ! -d $nginx_dir ];then
-    tar jxvf $nginx_gz
+    tar zxvf $nginx_gz
 else
     echo $nginx_dir exist
 fi
