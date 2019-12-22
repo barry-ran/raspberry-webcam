@@ -34,7 +34,11 @@ echo ---------------------------------------------------------------
 echo tar $ffmpeg_bz
 echo ---------------------------------------------------------------
 
-tar jxvf $ffmpeg_bz
+if [ ! -d $ffmpeg_dir ];then
+    wget https://ffmpeg.org/releases/$ffmpeg_bz
+else
+    echo $ffmpeg_dir exist
+fi
 
 if [ $? -ne 0 ]; then
     echo tar $ffmpeg_bz failed
@@ -43,7 +47,7 @@ fi
 
 echo
 echo ---------------------------------------------------------------
-echo config $ffmpeg_bz
+echo config $ffmpeg_dir
 echo ---------------------------------------------------------------
 
 cd $ffmpeg_dir
@@ -53,29 +57,29 @@ chmod +x config_ffmpeg_rpi.sh
 
 echo
 echo ---------------------------------------------------------------
-echo make $ffmpeg_bz
+echo make $ffmpeg_dir
 echo ---------------------------------------------------------------
 
 make -j4
 
 if [ $? -ne 0 ]; then
-    echo make $ffmpeg_bz failed
+    echo make $ffmpeg_dir failed
     exit 1
 fi
 
 echo
 echo ---------------------------------------------------------------
-echo install $ffmpeg_bz
+echo install $ffmpeg_dir
 echo ---------------------------------------------------------------
 
 sudo make install
 
 if [ $? -ne 0 ]; then
-    echo install $ffmpeg_bz failed
+    echo install $ffmpeg_dir failed
     exit 1
 fi
 
 # 恢复工作目录
 cd $old_cd
 
-echo install $ffmpeg_bz success
+echo install $ffmpeg_dir success

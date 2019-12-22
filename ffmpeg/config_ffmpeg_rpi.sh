@@ -15,7 +15,6 @@ PREFIX=/usr/local
 \
 --enable-ffmpeg \
 --enable-ffplay \
---enable-ffserver \
 --enable-ffprobe \
 \
 --disable-doc \
