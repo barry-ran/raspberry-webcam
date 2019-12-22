@@ -11,7 +11,7 @@ cd $(dirname "$0")
 
 nginx_version=1.16.1
 nginx_gz=nginx-$nginx_version.tar.gz
-nginx_dir=$script_path/nginx-$ffmpeg_version
+nginx_dir=$script_path/nginx-$nginx_version
 nginx_rtmp_dir=$script_path/nginx-rtmp-module
 
 echo
