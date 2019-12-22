@@ -15,6 +15,18 @@ ffmpeg_dir=ffmpeg-$ffmpeg_version
 
 echo
 echo ---------------------------------------------------------------
+echo install depends
+echo ---------------------------------------------------------------
+
+sudo apt-get install libomxil-bellagio-dev
+
+if [ $? -ne 0 ]; then
+    echo install libomxil-bellagio-dev failed
+    exit 1
+fi
+
+echo
+echo ---------------------------------------------------------------
 echo download $ffmpeg_bz
 echo ---------------------------------------------------------------
 
