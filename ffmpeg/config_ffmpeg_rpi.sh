@@ -65,7 +65,7 @@ PREFIX=/usr/local
 --enable-muxer=fifo \
 --enable-muxer=tee \
 --enable-muxer=image2 \
---enable-demuxer=image2 \ 
+--enable-demuxer=image2 \
 \
 --enable-parser=h264 \
 --enable-parser=aac \
@@ -90,4 +90,5 @@ PREFIX=/usr/local
 \
 --enable-mmal \
 --enable-hwaccel=h264_mmal \
---enable-decoder=h264_mmal
+--enable-decoder=h264_mmal \
+\
