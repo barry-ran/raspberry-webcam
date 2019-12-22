@@ -1,8 +1,6 @@
 # raspberry-webcam
 树莓派网络摄像头监控
 
-/usr/local/bin/ffmpeg -ss 0 -t 100 -pix_fmt yuv420p -i /dev/video0 -c:v h264_omx -f flv rtmp://192.168.0.111:1935/hls
-
 # 环境
 1. 操作系统：
 2. apt-get更新或者安装某些包的时候可能需要翻墙
@@ -42,7 +40,7 @@
 ### 调研结果
 1. mjpg-stream - web可以直接访问，但是帧率太低，听说不支持CSI摄像头，只支持USB摄像头
 2. vlc - 延迟高，大约2s-5s
-3. raspivid - 延迟170ms左右，并h264编码，好像可以
+3. raspivid - 延迟170ms左右，并支持h264硬件编码，好像可以 [参考这里](https://blog.csdn.net/qq_39492932/article/details/84585152)
 
     该工具已经默认集成到了树莓派之中
     ```
@@ -63,7 +61,7 @@
 
     即会弹出一个显示树莓派实时视频流的窗口，而且延迟尚可，大概在200ms左右，基本上可以满足实时性的要求了。
 
-4. [pistreaming](https://github.com/waveform80/pistreaming) - 性能也不错
+4. [pistreaming](https://github.com/waveform80/pistreaming) - 性能不错，延迟低，作为最终采用方案
 
     1. 安装依赖
         ```
@@ -105,7 +103,18 @@
 
 7. [Camkit](https://gitee.com/andyspider/Camkit) - 支持硬件编解码，比较小众，缺少维护
 
-8. ffmpeg硬解码推流
+8. ffmpeg硬解码推流 - 支持硬件编解码，但是延迟很高（不知道是推流原因还是播放原因），画质很差
+
+    流程比较复杂，整理成脚本保存在ffmpeg目录中
+
+    1. 安装x264硬件编码 install_x264.sh
+    2. 安装ffmpeg install_ffmpeg.sh
+    3. 安装运行nginx install_nginx.sh
+    4. 启动推流（注意192.168.0.111替换为你的ip地址）
+        ```
+        /usr/local/bin/ffmpeg -ss 0 -pix_fmt yuv420p -i /dev/video0 -c:v h264_omx -f flv rtmp://192.168.0.111:1935/live/camera
+        ```
+    5. potplayer播放url rtmp://192.168.0.111:1935/live/camera
 
 
 ### 参考文档
