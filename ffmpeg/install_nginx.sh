@@ -13,6 +13,7 @@ nginx_version=1.16.1
 nginx_gz=nginx-$nginx_version.tar.gz
 nginx_dir=$script_path/nginx-$nginx_version
 nginx_rtmp_dir=$script_path/nginx-rtmp-module
+nginx_install_dir=/usr/local/nginx
 
 echo
 echo ---------------------------------------------------------------
@@ -80,7 +81,7 @@ echo config $nginx_dir
 echo ---------------------------------------------------------------
 
 cd $nginx_dir
-./configure --prefix=/usr/local/nginx --add-module=../nginx-rtmp-module --with-http_ssl_module
+./configure --prefix=$nginx_install_dir --add-module=../nginx-rtmp-module --with-http_ssl_module
 
 if [ $? -ne 0 ]; then
     echo config $nginx_dir failed
@@ -92,11 +93,16 @@ echo ---------------------------------------------------------------
 echo make $nginx_dir
 echo ---------------------------------------------------------------
 
-make -j4
+make -j4 CFLAGS='-Wno-implicit-fallthrough'
 
 if [ $? -ne 0 ]; then
     echo make $nginx_dir failed
     exit 1
+fi
+
+# 如果存在则先尝试stop
+if [ -f $nginx_install_dir/sbin/nginx ];then
+    sudo $nginx_install_dir/sbin/nginx -s stop
 fi
 
 echo
@@ -116,10 +122,23 @@ echo ---------------------------------------------------------------
 echo update nginx.conf
 echo ---------------------------------------------------------------
 
-#cp -f ../nginx.conf /usr/local/nginx/conf/nginx.conf
+cp -f ../nginx.conf $nginx_install_dir/conf/nginx.conf
 
 if [ $? -ne 0 ]; then
     echo update nginx.conf failed
+    exit 1
+fi
+
+echo
+echo ---------------------------------------------------------------
+echo start nginx
+echo ---------------------------------------------------------------
+
+cd $nginx_install_dir/sbin
+sudo ./nginx
+
+if [ $? -ne 0 ]; then
+    echo start nginx failed
     exit 1
 fi
 
