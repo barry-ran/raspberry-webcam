@@ -90,5 +90,4 @@ PREFIX=/usr/local
 \
 --enable-mmal \
 --enable-hwaccel=h264_mmal \
---enable-decoder=h264_mmal \
-\
+--enable-decoder=h264_mmal
