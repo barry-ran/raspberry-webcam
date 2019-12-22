@@ -36,6 +36,11 @@ cp ../config_x264_rpi.sh ./
 chmod +x config_x264_rpi.sh
 ./config_x264_rpi.sh
 
+if [ $? -ne 0 ]; then
+    echo config x264 failed
+    exit 1
+fi
+
 echo
 echo ---------------------------------------------------------------
 echo make x264

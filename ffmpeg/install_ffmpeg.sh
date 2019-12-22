@@ -11,14 +11,14 @@ cd $(dirname "$0")
 
 ffmpeg_version=4.2.1
 ffmpeg_bz=ffmpeg-$ffmpeg_version.tar.bz2
-ffmpeg_dir=ffmpeg-$ffmpeg_version
+ffmpeg_dir=$script_path/ffmpeg-$ffmpeg_version
 
 echo
 echo ---------------------------------------------------------------
 echo install depends
 echo ---------------------------------------------------------------
 
-sudo apt-get install libomxil-bellagio-dev
+sudo apt-get -y install libomxil-bellagio-dev
 
 if [ $? -ne 0 ]; then
     echo install libomxil-bellagio-dev failed
@@ -47,7 +47,7 @@ echo tar $ffmpeg_bz
 echo ---------------------------------------------------------------
 
 if [ ! -d $ffmpeg_dir ];then
-    wget https://ffmpeg.org/releases/$ffmpeg_bz
+    tar jxvf $ffmpeg_bz
 else
     echo $ffmpeg_dir exist
 fi
@@ -66,6 +66,11 @@ cd $ffmpeg_dir
 cp ../config_ffmpeg_rpi.sh ./
 chmod +x config_ffmpeg_rpi.sh
 ./config_ffmpeg_rpi.sh
+
+if [ $? -ne 0 ]; then
+    echo config $ffmpeg_dir failed
+    exit 1
+fi
 
 echo
 echo ---------------------------------------------------------------
