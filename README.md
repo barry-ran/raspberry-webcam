@@ -3,8 +3,6 @@
 
 /usr/local/bin/ffmpeg -ss 0 -t 100 -pix_fmt yuv420p -i /dev/video0 -c:v h264_omx -f flv rtmp://192.168.0.111:1935/hls
 
-https://gitee.com/andyspider/Camkit 支持硬件编解码，比较小众，缺少维护
-
 # 环境
 1. 操作系统：
 2. apt-get更新或者安装某些包的时候可能需要翻墙
@@ -105,7 +103,9 @@ https://gitee.com/andyspider/Camkit 支持硬件编解码，比较小众，缺�
 
 6. [fswebcam](https://github.com/fsphil/fswebcam) - 采集摄像头数据保存为图片，用来做视频监控的话，性能和延迟都达不到要求
 
-7. ffmpeg硬解码推流
+7. [Camkit](https://gitee.com/andyspider/Camkit) - 支持硬件编解码，比较小众，缺少维护
+
+8. ffmpeg硬解码推流
 
 
 ### 参考文档
@@ -114,6 +114,16 @@ https://gitee.com/andyspider/Camkit 支持硬件编解码，比较小众，缺�
 [树莓派摄像头推流的几种方式](https://blog.csdn.net/zz531987464/article/details/100087755)
 
 [使用motion和mjpg做视频监控器](https://blog.csdn.net/u010900754/article/details/53097626/)
+
+[Nginx部署RTMP流媒体服务器笔记](https://www.jianshu.com/p/f3ee62dc97bc)
+
+[ubuntu+rtmp+ffmpeg(硬解码)+树莓派实现视频直播](https://blog.csdn.net/cin_ie/article/details/80008851)
+
+[树莓派nginx+rtmp搭建直播流媒体服务](https://blog.csdn.net/weixin_33782386/article/details/91719249)
+
+[树莓派使用nginx+rtmp搭建直播服务器](https://blog.csdn.net/zizi7/article/details/54347223)
+
+[ffmpeg+nginx本地推流与html播放](https://www.jianshu.com/p/e51d3b2de59a)
 
 
 # 参考文档
