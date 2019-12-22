@@ -122,7 +122,7 @@ echo ---------------------------------------------------------------
 echo update nginx.conf
 echo ---------------------------------------------------------------
 
-cp -f ../nginx.conf $nginx_install_dir/conf/nginx.conf
+sudo cp -f ../nginx.conf $nginx_install_dir/conf/nginx.conf
 
 if [ $? -ne 0 ]; then
     echo update nginx.conf failed
