@@ -1,7 +1,7 @@
 #!/bin/sh
 PREFIX=/usr/local
 ./configure \
---enable-gpl    --enable-version3 --enable-nonfree \
+--enable-gpl --enable-version3 --enable-nonfree \
 --enable-static --disable-shared \
 \
 --prefix=$PREFIX \
@@ -90,5 +90,4 @@ PREFIX=/usr/local
 \
 --enable-mmal \
 --enable-hwaccel=h264_mmal \
---enable-decoder=h264_mmal \
-\
+--enable-decoder=h264_mmal
