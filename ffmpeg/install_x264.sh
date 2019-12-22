@@ -32,7 +32,7 @@ echo config x264
 echo ---------------------------------------------------------------
 
 cd x264
-mv ../config_x264_rpi.sh ./
+cp ../config_x264_rpi.sh ./
 chmod +x config_x264_rpi.sh
 ./config_x264_rpi.sh
 

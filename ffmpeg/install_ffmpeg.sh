@@ -51,7 +51,7 @@ echo config $ffmpeg_dir
 echo ---------------------------------------------------------------
 
 cd $ffmpeg_dir
-mv ../config_ffmpeg_rpi.sh ./
+cp ../config_ffmpeg_rpi.sh ./
 chmod +x config_ffmpeg_rpi.sh
 ./config_ffmpeg_rpi.sh
 
