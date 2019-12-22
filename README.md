@@ -38,7 +38,7 @@
 3. 视频编码并RTP传输
 
 ### 调研结果
-1. mjpg-stream - web可以直接访问，但是帧率太低，听说不支持CSI摄像头，只支持USB摄像头
+1. mjpg-stream - web可以直接访问，但是帧率太低，[参考](https://blog.csdn.net/m0_38106923/article/details/86562451)
 2. vlc - 延迟高，大约2s-5s
 3. raspivid - 延迟170ms左右，并支持h264硬件编码，好像可以 [参考这里](https://blog.csdn.net/qq_39492932/article/details/84585152)
 
