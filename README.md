@@ -2,13 +2,13 @@
 树莓派网络摄像头监控
 
 # 环境
-1. 操作系统：
+1. 操作系统：Raspbian Buster Lite
 2. apt-get更新或者安装某些包的时候可能需要翻墙
 
 # CSI摄像头
 
 ## 安装摄像头并测试
-1. 淘宝购买树莓派CSI摄像头，不用买官方正版，大约10多元
+1. 淘宝购买[树莓派CSI摄像头](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.28be2e8dSHCHDw&id=589954896868&_u=nncaoqo9af4)，不用买官方正版，大约10多元
 2. 摄像头自带PFC软排线，我们只需要把排线插入到树莓派摄像头CSI接口上（只有一个这种接口，看到排线就知道怎么插）
 3. 启动树莓派并检查是否启动了摄像头
 
@@ -134,6 +134,49 @@
 
 [ffmpeg+nginx本地推流与html播放](https://www.jianshu.com/p/e51d3b2de59a)
 
+# 舵机控制
+
+## 所需材料
+零件都在淘宝同一家店铺购买，总共约50元左右
+1. [MG90S舵机 x2](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.28be2e8dSHCHDw&id=588678162231&_u=nncaoqo5cf4) 用于控制摄像头转动，一个控制水平方向，一个控制垂直方向
+2. [舵机云台 x1](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.28be2e8dSHCHDw&id=588325796727&_u=nncaoqo5745) 用来搭载、固定舵机
+3. [舵机驱动板](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.28be2e8dSHCHDw&id=598065941803&_u=nncaoqo3716) 用来控制多个舵机
+5. [公对母杜邦线若干](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.28be2e8dSHCHDw&id=590291046862&_u=nncaoqob44e) 用来连接舵机驱动板和树莓派
+6. 树莓派
+
+## 舵机驱动板连接
+参考[这里](https://zhuanlan.zhihu.com/p/22805173)连线
+
+树莓派和舵机驱动板按照教程分别连接对应GND,SDA.0,SCL0,VCC,V+即可(图中GND的针脚被我的风扇占用了，后面测试下换其他GND针脚是否可行)
+
+注意是SDA.0,SCL.0,不要连成了SDA.1,SCL.1
+
+舵机直接插上即可，我插在了0，15两个位置
+
+## python控制舵机
+1. 树莓派开启I2C
+```
+sudo raspi-config -> 5.Interfacing Options -> P5 I2C　设置enable，然后重启树莓派
+```
+2. i2c-tools测试舵机连接状态
+```
+sudo apt-get install i2c-tools
+sudo i2cdetect -y 1
+```
+3. 使用PCA9685 python库控制舵机
+
+例子源码[在这里](https://github.com/adafruit/Adafruit_Python_PCA9685.git)(example目录下)
+
+```
+sudo pip3 install adafruit-pca9685
+python3 ./pwm_control.py
+```
+可以看到舵机来回转动
+
+## 参考文档
+[树莓派3B+ PCA9685舵机驱动板控制舵机](https://blog.csdn.net/zz531987464/article/details/100391715)
+
+[树莓派搭建简易远程监控（利用舵机制作可旋转的摄像头）](https://zhuanlan.zhihu.com/p/22805173)
 
 # 参考文档
 
