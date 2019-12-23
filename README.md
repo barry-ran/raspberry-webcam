@@ -116,6 +116,12 @@
         ```
     5. potplayer播放url rtmp://192.168.0.111:1935/live/camera
 
+9. [webrtc](https://github.com/kclyu/rpi-webrtc-streamer) - 看视频貌似效果很好，工作量太大，后期验证
+    
+[编译webrtc for raspberry](https://antmedia.io/building-and-cross-compiling-webrtc-for-raspberry/)
+
+[编译webrtc for raspberry 2](https://ipop-project.org/wiki/Build-WebRTC-Libraries-for-Raspberry-Pi-3-(Cross-compile-on-Ubuntu))
+
 
 ### 参考文档
 [树莓派上实现流媒体](https://blog.csdn.net/chiliaolm/article/details/51674691)
