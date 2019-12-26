@@ -175,7 +175,7 @@ sudo i2cdetect -y 1
 
 ```
 sudo pip3 install adafruit-pca9685
-python3 ./pwm_control.py
+python3 ./simpletest.py
 ```
 可以看到舵机来回转动
 
