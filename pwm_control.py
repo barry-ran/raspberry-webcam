@@ -1,46 +1,43 @@
-# Simple demo of of the PCA9685 PWM servo/LED controller library.
-# This will move channel 0 from min to max position repeatedly.
-# Author: Tony DiCola
-# License: Public Domain
+ #输入通道与角度。即可选通并使该通道的舵机转动到相应的角度(0-180)
+
+#导入 __future__ 文件的 division 功能函数(模块、变量名....)
 from __future__ import division
 import time
-
-# Import the PCA9685 module.
-import Adafruit_PCA9685
-
-
+ 
+#导入Adafruit_PCA9685模块
+import Adafruit_PCA9685										
+  
 # Uncomment to enable debug output.
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
-
+ 
 # Initialise the PCA9685 using the default address (0x40).
 pwm = Adafruit_PCA9685.PCA9685()
-
+ 
 # Alternatively specify a different address and/or bus:
 #pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
-
-# Configure min and max servo pulse lengths
-servo_min = 150  # Min pulse length out of 4096
-servo_max = 600  # Max pulse length out of 4096
-
-# Helper function to make setting a servo pulse width simpler.
-def set_servo_pulse(channel, pulse):
-    pulse_length = 1000000    # 1,000,000 us per second
-    pulse_length //= 60       # 60 Hz
-    print('{0}us per period'.format(pulse_length))
-    pulse_length //= 4096     # 12 bits of resolution
-    print('{0}us per bit'.format(pulse_length))
-    pulse *= 1000
-    pulse //= pulse_length
-    pwm.set_pwm(channel, 0, pulse)
-
+ 
+ 
+#2^12精度  角度转换成数值  
+#angle输入的角度值(0--180)  
+#pulsewidth高电平占空时间(0.5ms--2.5ms)   
+#/1000将us转换为ms  #20ms时基脉冲(50HZ)
+#pulse_width=((angle*11)+500)/1000;  
+#将角度转化为500(0.5)<-->2480(2.5)的脉宽值(高电平时间)   angle=180时  pulse_width=2480us(2.5ms)
+#date/4096=pulse_width/20 ->有上pulse_width的计算结果得date=4096*( ((angle*11)+500)/1000 )/20   -->int date=4096((angle*11)+500)/20000;
+	 	 
+def set_servo_angle(channel, angle):
+    #输入角度转换成12^精度的数值
+    #进行四舍五入运算 date=int(4096*((angle*11)+500)/(20000)+0.5)
+	date=int(4096*((angle*11)+500)/20000)					
+	pwm.set_pwm(channel, 0, date)
+ 
 # Set frequency to 60hz, good for servos.
-pwm.set_pwm_freq(60)
-
-print('Moving servo on channel 0, press Ctrl-C to quit...')
+pwm.set_pwm_freq(50)
+ 
+print('Moving servo on channel x, press Ctrl-C to quit...')
 while True:
     # Move servo on channel O between extremes.
-    pwm.set_pwm(0, 0, servo_min)
-    time.sleep(1)
-    pwm.set_pwm(0, 0, servo_max)
-    time.sleep(1)
+	channel=int(input('pleas input channel:'))
+	angle=int(input('pleas input angle:'))
+	set_servo_angle(channel, angle)
