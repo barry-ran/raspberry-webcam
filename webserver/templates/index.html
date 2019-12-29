@@ -1,0 +1,28 @@
+<!--
+   index.html
+-->
+
+<html>
+  <head>
+    <title>raspberry webcam</title>
+    <link rel="stylesheet" href='../static/style.css'/>
+    <style>
+		body {
+			text-align: center;
+		}
+    </style>
+  </head>
+  <body>
+    <h1>raspberry webcam</h1>
+    <h3><img src="{{ url_for('video_feed') }}" width="80%"></h3>
+    <p> Enter Pan Tilt Servo Angle:
+		<form method="POST">
+			PAN:  <input type="text" name="panServoAngle" value= {{panServoAngle}} size="3">
+			TILT: <input type="text" name="tiltServoAngle" value= {{tiltServoAngle}} size="3">
+			<input type="submit">
+		</form>
+	</p>
+	<hr>
+	<p> @2018 Developed by MJRoBot.org</p>
+  </body>
+</html>
